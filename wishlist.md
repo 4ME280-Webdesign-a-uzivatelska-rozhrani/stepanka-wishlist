@@ -20,8 +20,9 @@ Tady je seznam věcí, které bych si přála:
   - Prostorný, pohodlný a elegantní vůz
   - Ideální na dlouhé cesty i každodenní ježdění
   - [Oficiální stránky](https://www.skoda-auto.cz/modely/superb/superb)
-  - https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.indiacarnews.com%2Fnews%2Fskoda-superb-coming-back-to-india-launch-on-3rd-april-61503%2F&psig=AOvVaw0s_9AHpo9PNllzU73s1v4c&ust=1748082008929000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCLCKg4yvuY0DFQAAAAAdAAAAABAE
-  - ![image](https://github.com/user-attachments/assets/d0422f74-2294-4be7-9b5f-26c8125caf19)
+  - https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.indiacarnews.com%2Fnews%2Fskoda-superb-coming-back-to-india-launch-on-3rd-april-61503%2F&psig=AOvVaw39IZn2TCu-jq9JYuGl3zzR&ust=1748082451195000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCMjE6N2wuY0DFQAAAAAdAAAAABAE
+  - ![image](https://github.com/user-attachments/assets/cda8cc39-d7f1-48b3-b7af-71eb4659d3ef)
+
 
 
 ---
