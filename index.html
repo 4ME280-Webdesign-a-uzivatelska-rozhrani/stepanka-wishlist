@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <title>Můj Wishlist</title>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 2rem;
+      line-height: 1.6;
+      background-color: #f9f9f9;
+    }
+    h1, h2 {
+      color: #333;
+    }
+    a {
+      color: #0066cc;
+    }
+    pre {
+      background: #eee;
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Můj Wishlist</h1>
+  <div id="content">Načítání...</div>
+
+  <script>
+    // Nahraď tuto URL tvou RAW GitHub URL adresou na .md soubor
+    const markdownUrl = 'https://raw.githubusercontent.com/tvoje-uzivatelske-jmeno/tvuj-repozitar/main/wishlist.md';
+
+    fetch(markdownUrl)
+      .then(response => response.text())
+      .then(text => {
+        document.getElementById('content').innerHTML = marked.parse(text);
+      })
+      .catch(error => {
+        document.getElementById('content').innerText = 'Nepodařilo se načíst wishlist.';
+        console.error(error);
+      });
+  </script>
+
+</body>
+</html>
