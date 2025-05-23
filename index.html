@@ -6,40 +6,46 @@
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <style>
     body {
-      font-family: sans-serif;
-      margin: 2rem;
-      line-height: 1.6;
-      background-color: #f9f9f9;
-    }
-    h1, h2 {
+      font-family: system-ui, sans-serif;
+      margin: 2rem auto;
+      max-width: 800px;
+      padding: 1rem;
+      background: #fdfdfd;
       color: #333;
     }
     a {
-      color: #0066cc;
+      color: #1a73e8;
     }
-    pre {
-      background: #eee;
-      padding: 1rem;
+    pre, code {
+      background: #f4f4f4;
+      padding: 0.5rem;
+      border-radius: 4px;
+      display: block;
+      overflow-x: auto;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #ddd;
+      margin: 2rem 0;
     }
   </style>
 </head>
 <body>
 
   <h1>Můj Wishlist</h1>
-  <div id="content">Načítání...</div>
+  <div id="content">Načítání wishlistu z GitHubu...</div>
 
   <script>
-    // Nahraď tuto URL tvou RAW GitHub URL adresou na .md soubor
-    const markdownUrl = 'https://raw.githubusercontent.com/tvoje-uzivatelske-jmeno/tvuj-repozitar/main/wishlist.md';
+    const markdownUrl = 'https://raw.githubusercontent.com/4ME280-Webdesign-a-uzivatelska-rozhrani/stepanka-wishlist/main/wishlist.md';
 
     fetch(markdownUrl)
-      .then(response => response.text())
-      .then(text => {
-        document.getElementById('content').innerHTML = marked.parse(text);
+      .then(res => res.text())
+      .then(md => {
+        document.getElementById('content').innerHTML = marked.parse(md);
       })
-      .catch(error => {
-        document.getElementById('content').innerText = 'Nepodařilo se načíst wishlist.';
-        console.error(error);
+      .catch(err => {
+        document.getElementById('content').innerHTML = '<p style="color:red;">Chyba při načítání dat.</p>';
+        console.error(err);
       });
   </script>
 
