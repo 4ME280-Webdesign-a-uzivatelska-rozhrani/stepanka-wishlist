@@ -39,18 +39,135 @@
   </div>
 
   <script>
-    const BIN_ID = '68304f078960c979a5a0135a';
-    const API_KEY = '$2a$10$cEC9UMYDjgPs5bqVeFHXqOU8EaKOGZAnvhz6xxmJ2LX4iGdeAsIrS';
-    const BIN_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
-    const BIN_LATEST = `${BIN_URL}/latest`;
+    const wishlistData = {
+      "wishlist": [
+        {
+          "category": "🎥 Objektiv",
+          "item": "Sony FE 24-70mm f/2.8 GM II",
+          "description": [
+            "Profesionální objektiv pro full-frame fotoaparáty Sony",
+            "Skvělý pro portréty, krajiny i každodenní použití"
+          ],
+          "infoLink": "https://www.sony.cz/electronics/fotoaparaty-vymenny-objektiv/sel2470gm2",
+          "imageLink": "https://github.com/user-attachments/assets/06fae520-6b83-459c-8748-9d53e1ac5f20",
+          "price": "64 990 Kč",
+          "reservedBy": null
+        },
+        {
+          "category": "🚗 Auto",
+          "item": "Škoda Superb",
+          "description": [
+            "Prostorný, pohodlný a elegantní vůz",
+            "Ideální na dlouhé cesty i každodenní ježdění"
+          ],
+          "infoLink": "https://www.skoda-auto.cz/modely/superb/superb",
+          "imageLink": "https://github.com/user-attachments/assets/cda8cc39-d7f1-48b3-b7af-71eb4659d3ef",
+          "price": "od 900 000 Kč",
+          "reservedBy": null
+        },
+        {
+          "category": "👟 Boty",
+          "item": "Hoka (např. model Clifton nebo Bondi)",
+          "description": [
+            "Extrémně pohodlné a odlehčené běžecké boty",
+            "Skvělé i na celodenní nošení ve městě"
+          ],
+          "infoLink": "https://www.hoka.com/",
+          "imageLink": "https://github.com/user-attachments/assets/6ba69606-8d85-43f8-a47f-5e6dc48a0857",
+          "price": "3 990 Kč",
+          "reservedBy": null
+        },
+        {
+          "category": "📸 Fotoaparát",
+          "item": "Sony A7 IV",
+          "description": [
+            "Full-frame fotoaparát nové generace",
+            "Ideální pro profesionální fotografii i video"
+          ],
+          "infoLink": "https://www.sony.cz/electronics/fotoaparaty-s-vymennym-objektivem/ilce-7m4",
+          "imageLink": "https://www.sony.com/image/sony-a7-iv.png",
+          "price": "65 990 Kč",
+          "reservedBy": null
+        },
+        {
+          "category": "🎧 Sluchátka",
+          "item": "Sony WH-1000XM5",
+          "description": [
+            "Špičkové bezdrátové sluchátka s potlačením hluku",
+            "Vynikající zvuk a pohodlí pro každodenní použití"
+          ],
+          "infoLink": "https://www.sony.cz/electronics/sluchatka-na-usi/wh-1000xm5",
+          "imageLink": "https://www.sony.com/image/sony-wh1000xm5.png",
+          "price": "9 990 Kč",
+          "reservedBy": null
+        },
+        {
+          "category": "📚 Kurzy",
+          "item": "Roční členství Skillshare",
+          "description": [
+            "Přístup k tisícům online kurzů",
+            "Kreativita, design, produktivita, technologie"
+          ],
+          "infoLink": "https://www.skillshare.com/",
+          "imageLink": "https://cdn.skillshare.com/uploads/homepage/2021-10-26-skillshare-ogimage.jpg",
+          "price": "2 000 Kč",
+          "reservedBy": null
+        },
+        {
+          "category": "💻 Notebook",
+          "item": "Apple MacBook Air M2",
+          "description": [
+            "Lehký, výkonný a tichý notebook",
+            "Ideální na práci i zábavu"
+          ],
+          "infoLink": "https://www.apple.com/macbook-air-m2/",
+          "imageLink": "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/macbook-air-m2.jpg",
+          "price": "34 990 Kč",
+          "reservedBy": null
+        },
+        {
+          "category": "✈️ Zájezd",
+          "item": "Eurovíkend v Paříži",
+          "description": [
+            "Romantický víkend ve městě lásky",
+            "Letenky + ubytování + snídaně"
+          ],
+          "infoLink": "https://www.eurovikendy.cz/pariz",
+          "imageLink": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Paris_Night.jpg/800px-Paris_Night.jpg",
+          "price": "12 000 Kč",
+          "reservedBy": null
+        },
+        {
+          "category": "🍳 Kuchyň",
+          "item": "KitchenAid Artisan robot",
+          "description": [
+            "Stylový a výkonný kuchyňský robot",
+            "Skvělý pomocník na pečení"
+          ],
+          "infoLink": "https://www.kitchenaid.cz/",
+          "imageLink": "https://www.kitchenaid.cz/image/artisan-mixer.jpg",
+          "price": "15 990 Kč",
+          "reservedBy": null
+        },
+        {
+          "category": "🎨 Umění",
+          "item": "Plátno s originálním motivem od lokálního umělce",
+          "description": [
+            "Podpora lokální kultury",
+            "Krásná výzdoba bytu"
+          ],
+          "infoLink": "#",
+          "imageLink": "https://www.example.com/local-art.jpg",
+          "price": "5 000 Kč",
+          "reservedBy": null
+        }
+      ],
+      "note": "Tento wishlist slouží jako inspirace i motivace pro budoucnost! 💫"
+    };
 
-    let data = [];
-
-    function renderWishlist(obj) {
-      const items = obj.wishlist;
+    function renderWishlist(items) {
       const container = document.getElementById('wishlist');
       container.innerHTML = '';
-
       items.forEach((item, index) => {
         const div = document.createElement('div');
         div.className = 'gift';
@@ -66,12 +183,8 @@
         link.textContent = `${item.category} ${item.item}`;
         title.appendChild(link);
 
-        const desc = document.createElement('ul');
-        item.description.forEach(d => {
-          const li = document.createElement('li');
-          li.textContent = d;
-          desc.appendChild(li);
-        });
+        const desc = document.createElement('p');
+        desc.textContent = (item.description || []).join(' ');
         desc.className = 'mt-2 mb-1 text-muted';
 
         const price = document.createElement('div');
@@ -91,8 +204,8 @@
         button.className = 'btn btn-primary btn-sm mt-2';
         button.textContent = 'Rezervovat';
         button.onclick = () => {
-          data.wishlist[index].reservedBy = input.value.trim();
-          updateBin(data);
+          wishlistData.wishlist[index].reservedBy = input.value.trim();
+          renderWishlist(wishlistData.wishlist);
         };
 
         div.appendChild(img);
@@ -106,45 +219,9 @@
 
         container.appendChild(div);
       });
-
-      if (obj.note) {
-        const note = document.createElement('p');
-        note.className = 'text-muted text-center mt-4';
-        note.textContent = obj.note;
-        container.appendChild(note);
-      }
     }
 
-    function updateBin(newData) {
-      fetch(BIN_URL, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Master-Key': API_KEY
-        },
-        body: JSON.stringify(newData)
-      })
-      .then(res => res.json())
-      .then(() => {
-        alert('✅ Uloženo!');
-        renderWishlist(newData);
-      })
-      .catch(err => alert('❌ Chyba při ukládání: ' + err.message));
-    }
-
-    fetch(BIN_LATEST, {
-      headers: {
-        'X-Master-Key': API_KEY
-      }
-    })
-    .then(res => res.json())
-    .then(json => {
-      data = json.record;
-      renderWishlist(data);
-    })
-    .catch(err => {
-      document.getElementById('wishlist').textContent = '❌ Nepodařilo se načíst wishlist: ' + err.message;
-    });
+    renderWishlist(wishlistData.wishlist);
   </script>
 </body>
 </html>
