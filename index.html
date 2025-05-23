@@ -16,7 +16,6 @@
       padding: 1.5rem;
       margin-bottom: 1.5rem;
       box-shadow: 0 3px 6px rgba(0,0,0,0.05);
-      overflow: hidden;
     }
     .gift img {
       max-width: 120px;
@@ -31,19 +30,12 @@
     .clear {
       clear: both;
     }
-    a {
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
   </style>
 </head>
 <body>
   <div class="container">
     <h1 class="text-center mb-4">🎁 Wishlist Štěpánky</h1>
     <div id="wishlist"></div>
-    <div id="note" class="mt-4 text-center text-muted"></div>
   </div>
 
   <script>
@@ -52,10 +44,10 @@
     const BIN_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
     const BIN_LATEST = `${BIN_URL}/latest`;
 
-    let fullData = null;  // celý objekt z binu (wishlist + note)
-    let wishlist = [];    // pouze pole wishlist
+    let data = [];
 
-    function renderWishlist(items) {
+    function renderWishlist(obj) {
+      const items = obj.wishlist;
       const container = document.getElementById('wishlist');
       container.innerHTML = '';
 
@@ -71,25 +63,23 @@
         const link = document.createElement('a');
         link.href = item.infoLink;
         link.target = '_blank';
-        link.textContent = item.item;
+        link.textContent = `${item.category} ${item.item}`;
         title.appendChild(link);
 
-        const category = document.createElement('div');
-        category.textContent = item.category;
-        category.style.fontWeight = '600';
-        category.style.marginBottom = '0.3rem';
-
         const desc = document.createElement('ul');
-        if (item.description && item.description.length) {
-          item.description.forEach(line => {
-            const li = document.createElement('li');
-            li.textContent = line;
-            desc.appendChild(li);
-          });
-        }
+        item.description.forEach(d => {
+          const li = document.createElement('li');
+          li.textContent = d;
+          desc.appendChild(li);
+        });
+        desc.className = 'mt-2 mb-1 text-muted';
+
+        const price = document.createElement('div');
+        price.innerHTML = `<strong>Cena:</strong> ${item.price || 'neuvedena'}`;
+        price.className = 'mb-2';
 
         const reserved = document.createElement('div');
-        reserved.className = 'reserved mt-2';
+        reserved.className = 'reserved';
         reserved.innerHTML = `Rezervoval: <strong>${item.reservedBy || 'nikdo'}</strong>`;
 
         const input = document.createElement('input');
@@ -101,14 +91,14 @@
         button.className = 'btn btn-primary btn-sm mt-2';
         button.textContent = 'Rezervovat';
         button.onclick = () => {
-          wishlist[index].reservedBy = input.value.trim();
-          updateBin(wishlist);
+          data.wishlist[index].reservedBy = input.value.trim();
+          updateBin(data);
         };
 
-        div.appendChild(category);
         div.appendChild(img);
         div.appendChild(title);
         div.appendChild(desc);
+        div.appendChild(price);
         div.appendChild(reserved);
         div.appendChild(input);
         div.appendChild(button);
@@ -117,36 +107,27 @@
         container.appendChild(div);
       });
 
-      // zobraz poznámku, pokud je
-      const noteEl = document.getElementById('note');
-      noteEl.textContent = fullData.note || '';
+      if (obj.note) {
+        const note = document.createElement('p');
+        note.className = 'text-muted text-center mt-4';
+        note.textContent = obj.note;
+        container.appendChild(note);
+      }
     }
 
-    function updateBin(newWishlist) {
-      if (!fullData) return alert('Data se ještě nenačetla.');
-
-      const updatedData = {
-        ...fullData,
-        wishlist: newWishlist
-      };
-
+    function updateBin(newData) {
       fetch(BIN_URL, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
           'X-Master-Key': API_KEY
         },
-        body: JSON.stringify(updatedData)
+        body: JSON.stringify(newData)
       })
-      .then(res => {
-        if (!res.ok) throw new Error('Chyba serveru při ukládání');
-        return res.json();
-      })
-      .then(json => {
+      .then(res => res.json())
+      .then(() => {
         alert('✅ Uloženo!');
-        fullData = updatedData;
-        wishlist = newWishlist;
-        renderWishlist(wishlist);
+        renderWishlist(newData);
       })
       .catch(err => alert('❌ Chyba při ukládání: ' + err.message));
     }
@@ -156,14 +137,10 @@
         'X-Master-Key': API_KEY
       }
     })
-    .then(res => {
-      if (!res.ok) throw new Error('Chyba při načítání dat');
-      return res.json();
-    })
+    .then(res => res.json())
     .then(json => {
-      fullData = json.record;
-      wishlist = fullData.wishlist || [];
-      renderWishlist(wishlist);
+      data = json.record;
+      renderWishlist(data);
     })
     .catch(err => {
       document.getElementById('wishlist').textContent = '❌ Nepodařilo se načíst wishlist: ' + err.message;
